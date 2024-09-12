@@ -1,11 +1,36 @@
+//import db from '../../db/db';
+const db = require("../../data/db-config")
+module.exports  = {
+  getAll,
+  getById,
+  create,
+  update,
+  remove
+}
 const getAll = () => {
-  // DO YOUR MAGIC
+  let row = db("cars")
+  return row
 }
 
-const getById = () => {
-  // DO YOUR MAGIC
+const getById = (id) => {
+  return db("cars")
+        .where({ id})
+        .first()
 }
 
-const create = () => {
-  // DO YOUR MAGIC
+const create = async (car) => {
+  const [id] = await db('cars').insert(car)
+  return getById(id)
+}
+
+const update = (id, car) => {
+  return db('cars')
+        .where({ id })
+        .update(car,"*")
+}
+
+const remove = (id) => {
+  return db('cars')
+        .where({ id })
+        .del()
 }
